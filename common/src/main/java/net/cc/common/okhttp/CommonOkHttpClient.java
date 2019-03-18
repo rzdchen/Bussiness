@@ -1,6 +1,10 @@
 package net.cc.common.okhttp;
 
 import net.cc.common.okhttp.https.HttpsUtils;
+import net.cc.common.okhttp.interceptors.DebugInterceptor;
+import net.cc.common.okhttp.listener.DisposeDataHandle;
+import net.cc.common.okhttp.response.CommonFileCallback;
+import net.cc.common.okhttp.response.CommonJsonCallback;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -59,7 +63,6 @@ public class CommonOkHttpClient {
          * trust all the https point
          */
         okHttpClientBuilder.sslSocketFactory(HttpsUtils.initSSLSocketFactory(), HttpsUtils.initTrustManager());
-
         //生成client对象
         mOkHttpClient = okHttpClientBuilder.build();
     }
@@ -88,27 +91,26 @@ public class CommonOkHttpClient {
         call.enqueue(callback);
         return call;
     }
-//    /**
-//     * 通过构造好的Request,Callback去发送请求
-//     *
-//     * @param request
-//     * @param callback
-//     */
-//    public static Call get(Request request, DisposeDataHandle handle) {
-//        Call call = mOkHttpClient.newCall(request);
-//        call.enqueue(new CommonJsonCallback(handle));
-//        return call;
-//    }
-//
-//    public static Call post(Request request, DisposeDataHandle handle) {
-//        Call call = mOkHttpClient.newCall(request);
-//        call.enqueue(new CommonJsonCallback(handle));
-//        return call;
-//    }
-//
-//    public static Call downloadFile(Request request, DisposeDataHandle handle) {
-//        Call call = mOkHttpClient.newCall(request);
-//        call.enqueue(new CommonFileCallback(handle));
-//        return call;
-//    }
+    /**
+     * 通过构造好的Request,Callback去发送请求
+     *
+     * @param request
+     */
+    public static Call get(Request request, DisposeDataHandle handle) {
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new CommonJsonCallback(handle));
+        return call;
+    }
+
+    public static Call post(Request request, DisposeDataHandle handle) {
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new CommonJsonCallback(handle));
+        return call;
+    }
+
+    public static Call downloadFile(Request request, DisposeDataHandle handle) {
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new CommonFileCallback(handle));
+        return call;
+    }
 }
