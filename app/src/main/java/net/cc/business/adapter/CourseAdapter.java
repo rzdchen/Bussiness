@@ -14,9 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
+
 import net.cc.business.R;
 import net.cc.business.module.recommand.RecommandBodyValue;
 import net.cc.business.utils.Util;
+import net.cc.common.core.AdContextInterface;
+import net.cc.common.core.video.VideoAdContext;
 import net.cc.common.utils.ImageLoaderManager;
 import net.cc.common.utils.Utils;
 
@@ -43,7 +47,7 @@ public class CourseAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<RecommandBodyValue> mData;
     private ViewHolder mViewHolder;
-//    private VideoAdContext mAdsdkContext;
+    private VideoAdContext mAdsdkContext;
     private ImageLoaderManager mImagerLoader;
 
     public CourseAdapter(Context context, ArrayList<RecommandBodyValue> data) {
@@ -99,24 +103,24 @@ public class CourseAdapter extends BaseAdapter {
                     mViewHolder.mFooterView = (TextView) convertView.findViewById(R.id.item_footer_view);
                     mViewHolder.mShareView = (ImageView) convertView.findViewById(R.id.item_share_view);
                     //为对应布局创建播放器
-//                    mAdsdkContext = new VideoAdContext(mViewHolder.mVieoContentLayout,
-//                        new Gson().toJson(value), null);
-//                    mAdsdkContext.setAdResultListener(new AdContextInterface() {
-//                        @Override
-//                        public void onAdSuccess() {
-//                        }
-//
-//                        @Override
-//                        public void onAdFailed() {
-//                        }
-//
-//                        @Override
-//                        public void onClickVideo(String url) {
+                    mAdsdkContext = new VideoAdContext(mViewHolder.mVieoContentLayout,
+                        new Gson().toJson(value), null);
+                    mAdsdkContext.setAdResultListener(new AdContextInterface() {
+                        @Override
+                        public void onAdSuccess() {
+                        }
+
+                        @Override
+                        public void onAdFailed() {
+                        }
+
+                        @Override
+                        public void onClickVideo(String url) {
 //                            Intent intent = new Intent(mContext, AdBrowserActivity.class);
 //                            intent.putExtra(AdBrowserActivity.KEY_URL, url);
 //                            mContext.startActivity(intent);
-//                        }
-//                    });
+                        }
+                    });
                     break;
                 case CARD_TYPE_ONE:
                     mViewHolder = new ViewHolder();
