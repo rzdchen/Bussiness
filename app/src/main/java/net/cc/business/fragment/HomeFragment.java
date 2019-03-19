@@ -23,6 +23,8 @@ import net.cc.business.fragment.base.BaseFragment;
 import net.cc.business.module.recommand.BaseRecommandModel;
 import net.cc.business.module.recommand.RecommandBodyValue;
 import net.cc.business.network.http.RequestCenter;
+import net.cc.business.view.home.HomeHeaderLayout;
+import net.cc.business.zxing.app.CaptureActivity;
 import net.cc.common.okhttp.listener.DisposeDataListener;
 
 /**
@@ -52,6 +54,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         mContentView = inflater.inflate(R.layout.fragment_home_layout, container, false);
         initView();
         return mContentView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requestRecommandData();
     }
 
     private void initView() {
@@ -92,7 +100,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             mLoadingView.setVisibility(View.GONE);
             mListView.setVisibility(View.VISIBLE);
             //为listview添加头
-//            mListView.addHeaderView(new HomeHeaderLayout(mContext, mRecommandData.data.head));
+            mListView.addHeaderView(new HomeHeaderLayout(mContext, mRecommandData.data.head));
             //创建adapter
             mAdapter = new CourseAdapter(mContext, mRecommandData.data.list);
             mListView.setAdapter(mAdapter);
@@ -103,7 +111,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//                    mAdapter.updateAdInScrollView();
+                    mAdapter.updateAdInScrollView();
                 }
             });
         } else {
@@ -147,8 +155,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void doOpenCamera() {
-//        Intent intent = new Intent(mContext, CaptureActivity.class);
-//        startActivityForResult(intent, REQUEST_QRCODE);
+        Intent intent = new Intent(mContext, CaptureActivity.class);
+        startActivityForResult(intent, REQUEST_QRCODE);
     }
 
     @Override

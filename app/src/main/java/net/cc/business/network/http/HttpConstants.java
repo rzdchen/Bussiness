@@ -7,7 +7,8 @@ package net.cc.business.network.http;
  */
 public class HttpConstants {
 
-    private static final String ROOT_URL = "http://imooc.com/api";
+//    private static final String ROOT_URL = "http://imooc.com/api";
+    private static final String ROOT_URL = "http://10.0.4.224/api";
 
     /**
      * 请求本地产品列表

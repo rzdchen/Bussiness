@@ -149,8 +149,8 @@ public class CourseAdapter extends BaseAdapter {
                     //add data
                     ArrayList<RecommandBodyValue> recommandList = Util.handleData(value);
                     mViewHolder.mViewPager.setPageMargin(Utils.dip2px(mContext, 12));
-//                    mViewHolder.mViewPager.setAdapter(new HotSalePagerAdapter(mContext, recommandList));
-//                    mViewHolder.mViewPager.setCurrentItem(recommandList.size() * 100);
+                    mViewHolder.mViewPager.setAdapter(new HotSalePagerAdapter(mContext, recommandList));
+                    mViewHolder.mViewPager.setCurrentItem(recommandList.size() * 100);
                     break;
             }
             convertView.setTag(mViewHolder);
